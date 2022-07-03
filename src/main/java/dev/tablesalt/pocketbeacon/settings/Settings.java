@@ -21,18 +21,17 @@ public class Settings extends SimpleSettings {
 
 		//todo update config version
 		private static void init() {
-			pathPrefix("Fuel_Types");
-			COALMULTIPLIER = getInteger("Coal.Multiplier");
-			IRONMULTIPLIER = getInteger("Iron.Multiplier");
-			GOLDMULTIPLIER = getInteger("Gold.Multiplier");
-			EMERALDMULTIPLIER = getInteger("Emerald.Multiplier");
-			DIAMONDMULTIPLIER = getInteger("Diamond.Multiplier");
+			COALMULTIPLIER = getInteger("Fuel_Types.Coal.Multiplier");
+			IRONMULTIPLIER = getInteger("Fuel_Types.Iron.Multiplier");
+			GOLDMULTIPLIER = getInteger("Fuel_Types.Gold.Multiplier");
+			EMERALDMULTIPLIER = getInteger("Fuel_Types.Emerald.Multiplier");
+			DIAMONDMULTIPLIER = getInteger("Fuel_Types.Diamond.Multiplier");
 
-			COALBURN = getTime("Coal.Burn_Time");
-			IRONBURN = getTime("Iron.Burn_Time");
-			GOLDBURN = getTime("Gold.Burn_Time");
-			EMERALDBURN = getTime("Emerald.Burn_Time");
-			DIAMONDBURN = getTime("Diamond.Burn_Time");
+			COALBURN = getTime("Fuel_Types.Coal.Burn_Time");
+			IRONBURN = getTime("Fuel_Types.Iron.Burn_Time");
+			GOLDBURN = getTime("Fuel_Types.Gold.Burn_Time");
+			EMERALDBURN = getTime("Fuel_Types.Emerald.Burn_Time");
+			DIAMONDBURN = getTime("Fuel_Types.Diamond.Burn_Time");
 		}
 	}
 

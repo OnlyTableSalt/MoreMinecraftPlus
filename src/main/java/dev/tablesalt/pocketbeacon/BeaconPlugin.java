@@ -33,7 +33,7 @@ public final class BeaconPlugin extends SimplePlugin {
 	protected void onReloadablesStart() {
 
 
-		registerCommands("pocketbeacon|beacon|pb", BeaconCommandGroup.getInstance());
+		registerCommands(BeaconCommandGroup.getInstance());
 		registerEvents(BeaconListener.getInstance());
 		Bukkit.addRecipe(BeaconUtil.getRecipe());
 

@@ -1,5 +1,6 @@
 package dev.tablesalt.pocketbeacon.beacon;
 
+import com.bekvon.bukkit.residence.commands.material;
 import dev.tablesalt.pocketbeacon.BeaconPlugin;
 import dev.tablesalt.pocketbeacon.PlayerCache;
 import lombok.Getter;
@@ -27,8 +28,8 @@ public class BeaconUtil {
 	}
 
 	public static ItemStack getBeaconItem() {
-		return ItemCreator.builder().material(CompMaterial.BEACON).name("&fPocket Beacon").glow(true).lore(
-				"Right/Left Click to Open").build().make();
+		return ItemCreator.of(CompMaterial.BEACON).name("&fPocket Beacon").glow(true).lore(
+				"Right/Left Click to Open").make();
 	}
 
 	public static ShapedRecipe getRecipe() {
@@ -51,7 +52,10 @@ public class BeaconUtil {
 		PlayerCache cache = PlayerCache.getCache(player);
 
 		//get the current active effect and the next effect to switch to
-		PotionEffectType currentEffect = BeaconState.toPotionEffectType(cache.getCurrentState());
+		PotionEffectType currentEffect = null;
+		if(cache.getCurrentState() != null) {
+			currentEffect = BeaconState.toPotionEffectType(cache.getCurrentState());
+		}
 		PotionEffectType nextEffect = BeaconState.toPotionEffectType(nextState);
 
 
@@ -103,7 +107,7 @@ public class BeaconUtil {
 
 
 	private ItemStack makeGlass(Material material) {
-		return ItemCreator.of(CompMaterial.fromMaterial(material), "").build().make();
+		return ItemCreator.of(CompMaterial.fromMaterial(material), "").make();
 	}
 
 

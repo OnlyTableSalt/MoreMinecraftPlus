@@ -35,7 +35,7 @@ public enum BeaconState {
 	BeaconState(int tier, Material material) {
 		this.tier = tier;
 		item = ItemCreator.of(CompMaterial.fromMaterial(material),
-				ItemUtil.bountifyCapitalized(this.toString())).build().make();
+				ItemUtil.bountifyCapitalized(this.toString())).make();
 	}
 
 	public static PotionEffectType toPotionEffectType(BeaconState beaconState) {

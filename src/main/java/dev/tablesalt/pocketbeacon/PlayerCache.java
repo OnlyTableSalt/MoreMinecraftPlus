@@ -4,16 +4,20 @@ import dev.tablesalt.pocketbeacon.beacon.BeaconFuel;
 import dev.tablesalt.pocketbeacon.beacon.BeaconState;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.mineacademy.fo.menu.model.ItemCreator;
 import org.mineacademy.fo.remain.CompMaterial;
-import org.mineacademy.fo.settings.YamlSectionConfig;
+import org.mineacademy.fo.settings.YamlConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class PlayerCache extends YamlSectionConfig {
+import static org.mineacademy.fo.jsonsimple.JsonSimpleUtil.getEnum;
+
+public class PlayerCache extends YamlConfig {
 
 	@Getter
 	@Setter
@@ -22,32 +26,34 @@ public class PlayerCache extends YamlSectionConfig {
 	@Getter
 	@Setter
 	private BeaconFuel beaconFuel;
-
+	private UUID uuid;
 
 	protected PlayerCache(final String uuid) {
-		super(uuid);
+		this.uuid = UUID.fromString(uuid);
 		loadConfiguration(null, "data.db");
 	}
 
-
 	@Override
-	protected void onLoadFinish() {
-		if (isSet("Beacon_Fuel"))
-			beaconFuel = BeaconFuel.deserialize(getMap("Beacon_Fuel"));
+	protected void onLoad() {
+		super.onLoad();
+		if (isSet(uuid.toString()+"Beacon_Fuel"))
+			beaconFuel = BeaconFuel.deserialize(getMap(uuid.toString()+"Beacon_Fuel"));
 
-		if (isSet("Effect_State"))
-			currentState = getEnum("Effect_State", BeaconState.class);
+		if (isSet(uuid.toString()+"Effect_State"))
+			currentState = getEnum(uuid.toString()+"Effect_State", BeaconState.class); else
+				currentState = BeaconState.NO_EFFECT;
+
 	}
 
 	public void saveData() {
 
 
 		if (beaconFuel != null) {
-			save("Beacon_Fuel", beaconFuel.serialize());
-			save("Effect_State", currentState);
+			save(uuid.toString()+"Beacon_Fuel", beaconFuel.saveToMap());
+			save(uuid.toString()+"Effect_State", currentState);
 		} else {
-			save("Beacon_Fuel", ItemCreator.of(CompMaterial.AIR).build().make());
-			save("Effect_State", BeaconState.NO_EFFECT);
+			save(uuid.toString()+"Beacon_Fuel",  new BeaconFuel(new ItemStack(Material.AIR)).saveToMap());
+			save(uuid.toString()+"Effect_State", BeaconState.NO_EFFECT);
 
 		}
 
